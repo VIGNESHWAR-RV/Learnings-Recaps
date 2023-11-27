@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Structure [ semi colon, comments ]</title>
+</head>
+<body>
+
+    <script>
+        // ( in most cases ) new Line implies semi colon  (( auto semi-colon insertion ))
+        alert("hello")
+        alert("JavaScript")
+
+        // here it does not apply auto semi-colon
+        alert(3 +
+        1
+        + 2);
+
+    // ---------------------------------------------------------------------
+
+        // 🚫 there are situations where JS fails to put auto semicolon
+        alert("hello Javascript !!!")
+
+        [1,2].forEach(alert);
+
+        // since there is no semicolon, it is interpreted as
+        // alert("hello Javascript !!!")[1,2].forEach(alert); ☠️!!!
+
+    // ---------------------------------------------------------------------
+
+        // this can be fixed by adding semi-colon after alert;        
+        alert("hello Javascript !!!");
+
+        [1,2].forEach(alert);
+
+    </script>
+
+    <!-- 
+       Note: ⚠️
+            its always better to use semi-colon at the end of each statement
+    -->
+
+
+    <!-- COMMENTS - useful for describing code logic and behaviour as code base grows -->
+     <script>
+         // This is single line comment ( ctrl + / )
+         /*
+            This is multi-line comment 
+            ( ctrl + shift + / ) - sometimes we have to set it up in editor
+            ✅ useful to temporarily disable part of code
+         */
+     </script>
+
+     <!-- 
+        Note : ⚠️ 
+            cannot have multi-line comment inside multi-line comment
+            its better to write comments 
+            comments can be removed by code minifying tools and then could be used in production
+     -->
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert with Script tag</title>
+</head>
+<body>
+
+    <!-- Alert inside script tag as content -->
+    
+    <script>
+        alert("Hello JavaScript!!!");
+    </script>
+
+    <!-- Alert with external JavaScript files referencing with script tag -->
+
+    <script src="./alert.js"> // relative path of the file which is in same folder
+
+    </script>
+
+    <!-- 
+        NOTE: ⚠️
+          * script contents inside script tag wont execute if 
+            the script tag is referring external js file with its "src" attribute.
+          * For larger JS codes, its better to maintain separate files since browser downloads
+            and cache the files so the files won't be downloaded multiple times again 
+    -->
+</body>
+</html>
