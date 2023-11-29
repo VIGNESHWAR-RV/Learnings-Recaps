@@ -14,9 +14,27 @@
   Memory Allocation Phase
   ------ ---------- -----
 
-  All variables in the scope environment are declared and initialized with undefined value;
-  function definition are defined with the definition code
+  All variables with in the scope environment are declared and initialized with undefined value;
+  function definition ( only named functions not -> function expressions (anonymous) && arrow function && IIFE  ) are defined with the definition code
 
+  Note 🚨
+    Variable type play major role in memory allocation phase
+      var type variables
+      ------------------
+        Memory Allocation phase - variable is declared and initialized with undefiend value
+        Code execution phase - variable is assigned with actual value
+    
+      let type variables
+      ------------------
+        Memory Allocation phase - variable is declared
+          ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws "not defined" error )
+        Code execution phase - variable is initialized with undefined and assigned with actual value
+
+      const type variables
+      --------------------
+        Memory Alloction phase - variable is declared
+          ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws "not defined" error )
+        Code execution phase - variable is initialized and assigned with actual value ( since const can't have different values assigned )  
 */ 
 
 /*
