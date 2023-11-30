@@ -27,13 +27,13 @@
       let type variables
       ------------------
         Memory Allocation phase - variable is declared
-          ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws "not defined" error )
+          ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is initialized with undefined and assigned with actual value
 
       const type variables
       --------------------
         Memory Alloction phase - variable is declared
-          ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws "not defined" error )
+          ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is initialized and assigned with actual value ( since const can't have different values assigned )  
 */ 
 
@@ -59,7 +59,9 @@
 let examArr = ["I am" , "recursively", "created", "exectuion-context"];
 
 function recursion(arr, index=0) {
-  if (index === (arr.length - 1)) return arr[index];
+  if (index === (arr.length - 1)) {
+    return arr[index];
+  }
   return arr[index] + " " + recursion(arr, index+1);
 };
 
@@ -73,6 +75,8 @@ console.log(result);
     they might not as they have no return statement defined in them to switch back the execution to parent execution context.
 
     Here followed with idea that they would create separate execution context.
+
+    Ans: It creates a separate scope in the same execution context
 */ 
 
 /*
@@ -99,16 +103,10 @@ i) Global Execution Context creation
         
             Code Execution Phase
               - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=0 // default value ) 
-              - Execution context creation for If block
-    
-                  Memory Alloctaion Phase
-                    - There are no variables defined inside if block
-    
-                  Code Exection Phase 
-                    - variables inside the if statement ( second line ) gets executed for boolean validation 
-                      index = 0; arr.length = 4
-                      (0 === (4 - 1)) // false 
-                    - Execution is switched backed to next line of parent execution context ( Exectuion context of first recursion call )   
+              - variables inside the if statement ( second line ) gets executed for boolean validation 
+                index = 0; arr.length = 4
+                (0 === (4 - 1)) // false 
+              - Execution is switched backed to next line of parent execution context ( Exectuion context of first recursion call )   
               - recursion call in the return statement ( third line ) gets executed 
                     
                 iii) Execution context creation for second recursion call 
@@ -119,16 +117,10 @@ i) Global Execution Context creation
 
                     Code Execution Phase
                       - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=1 ( 0 + 1 ) ) 
-                      - Execution context creation for If block
-
-                            Memory Alloctaion Phase
-                              - There are no variables defined inside if block
-                
-                            Code Exection Phase 
-                              - variables inside the if statement (s econd line ) gets executed for boolean validation 
-                                index = 1; arr.length = 4
-                                (1 === (4 - 1)) // false 
-                              - Execution is switched backed to next line of parent execution context ( Exectuion context of second recursion call )   
+                      - variables inside the if statement (s econd line ) gets executed for boolean validation 
+                        index = 1; arr.length = 4
+                        (1 === (4 - 1)) // false 
+                      - Execution is switched backed to next line of parent execution context ( Exectuion context of second recursion call )   
                       - recursion call in the return statement ( third line ) gets executed 
               
                         iv) Execution context creation for third recursion call 
@@ -139,17 +131,10 @@ i) Global Execution Context creation
                     
                             Code Execution Phase
                               - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=2 ( 1 + 1 ) ) 
-                              - Execution context creation for If block
-                    
-                                Memory Alloctaion Phase
-                                  - There are no variables defined inside if block
-                                
-                                Code Exection Phase 
-                                  - variables inside the if statement ( second line ) gets executed for boolean validation 
-                                    index = 2; arr.length = 4
-                                    (2 === (4 - 1)) // false 
-                                  - Execution is switched backed to next line of parent execution context ( Exectuion context of third recursion call )  
-
+                              - variables inside the if statement ( second line ) gets executed for boolean validation 
+                                index = 2; arr.length = 4
+                                (2 === (4 - 1)) // false 
+                              - Execution is switched backed to next line of parent execution context ( Exectuion context of third recursion call )  
                               - recursion call in the return statement ( third line ) gets executed 
     
                                 v) Execution context creation for fourth recursion call 
@@ -160,16 +145,10 @@ i) Global Execution Context creation
                        
                                    Code Execution Phase
                                      - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=3 ( 2 + 1 ) ) 
-                                     - Execution context creation for If block
-                       
-                                       Memory Alloctaion Phase
-                                         - There are no variables defined inside if block
-                                   
-                                       Code Exection Phase 
-                                         - variables inside the if statement ( second line ) gets executed for boolean validation 
-                                           index = 3; arr.length = 4
-                                           (3 === (4 - 1)) // true
-                                         - Since if statement is true, it returns with arr[i] => arr[3] => "exectuion-context"
+                                     - variables inside the if statement ( second line ) gets executed for boolean validation 
+                                       index = 3; arr.length = 4
+                                       (3 === (4 - 1)) // true
+                                     - Since if statement is true, it returns with arr[i] => arr[3] => "exectuion-context"
                                      - Execution is switched backed to parent execution context ( Exectuion context of third recursion call ) and this context gets destroyed and garbage collected.
                                                 
                               - returned value from fourth recursion call is combined with arr[i] + " " // arr[i] => arr[2] => "created" // ( "created" + " " + "exectuion-context");
