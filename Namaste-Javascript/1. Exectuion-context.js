@@ -1,24 +1,24 @@
 /*
   Execution-context is a environment 
   created in call-stack 
-  to hold scope variables and to execute code  
+  to hold scope variables, function definitions and to execute code  
 
   it has two phase
    -  Memory creation ( Memory allocation phase )
    -  Thread of Execution ( code execution phase )
 
-  on completion, the execution context will be garbage collected.
+  on completion, the execution context will be removed from call-stack and garbage collected.
 */
 
 /*
   Memory Allocation Phase
   ------ ---------- -----
 
-  All variables with in the scope environment are declared and initialized with undefined value;
-  function definition ( only named functions not -> function expressions (anonymous) && arrow function && IIFE  ) are defined with the definition code
+  All variables within the scope environment are declared and initialized with undefined value;
+  function definition ( only named functions ) && !( function expressions (anonymous) && arrow function && IIFE  ) are defined with the definition code
 
   Note 🚨
-    Variable type play major role in memory allocation phase
+    Variable type ( var, let, const ) play major role in memory allocation phase
       var type variables
       ------------------
         Memory Allocation phase - variable is declared and initialized with undefiend value
@@ -26,15 +26,18 @@
     
       let type variables
       ------------------
-        Memory Allocation phase - variable is declared
+        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context ( in separate memory ( script ) incase of global execution context )
           ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws reference error ( "not defined" ) error )
-        Code execution phase - variable is initialized with undefined and assigned with actual value
+        Code execution phase - variable is assigned with actual value
 
       const type variables
       --------------------
-        Memory Alloction phase - variable is declared
+        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context ( in separate memory ( script ) incase of global execution context )
           ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws reference error ( "not defined" ) error )
-        Code execution phase - variable is initialized and assigned with actual value ( since const can't have different values assigned )  
+        Code execution phase - variable is assigned with actual value
+
+       -- const type variables must be declared and initialized in same line 
+
 */ 
 
 /*
@@ -46,11 +49,10 @@
 
   Note🚨
 
-    block scope and function calls will create new Execution-context 
-    with its own memory allocation phase for its variables and exectuion phase to executes its code
+    function calls will create new Execution-context with its own memory allocation phase and exectuion phase to execute its code
+    if, else if, else, switch will execute in same execution context but creates a separate memory ( block ) for variables inside them.
     
-    nested execution-context will and can be invoked further and further 
-    until reaching the stack overflow limit
+    nested execution-context will and can be invoked further and further until reaching the stack overflow limit
   
 */
 
@@ -76,7 +78,7 @@ console.log(result);
 
     Here followed with idea that they would create separate execution context.
 
-    Ans: It creates a separate scope in the same execution context
+    Ans: It executes in the same execution context but creates a separate memory ( block ) for let,const type variables 
 */ 
 
 /*
