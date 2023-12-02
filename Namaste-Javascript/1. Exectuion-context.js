@@ -26,13 +26,13 @@
     
       let type variables
       ------------------
-        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context ( in separate memory ( script ) incase of global execution context )
+        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context. ( in separate memory ( script ) incase of global execution context )
           ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
       const type variables
       --------------------
-        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context ( in separate memory ( script ) incase of global execution context )
+        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context. ( in separate memory ( script ) incase of global execution context )
           ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
@@ -45,12 +45,12 @@
   ---- --------- -----
   
   All the variables will be assigned with respective value and be used for exectuion
-  all if conditions and function calls will proceed to execute.
+  all conditions, block statements and function calls will proceed to execute.
 
   Note🚨
 
     function calls will create new Execution-context with its own memory allocation phase and exectuion phase to execute its code
-    if, else if, else, switch will execute in same execution context but creates a separate memory ( block ) for variables inside them.
+    block statements ( {} ) will execute in same execution context but creates a separate memory ( block ) for variables ( let type , const type ) inside them.
     
     nested execution-context will and can be invoked further and further until reaching the stack overflow limit
   
@@ -72,7 +72,7 @@ console.log(result);
 
 // Doubt
 /*
-  If statement create separate execution context ? 
+  block statements ( {} ) create separate execution context ? 
     they might as they have separate block scoped variables
     they might not as they have no return statement defined in them to switch back the execution to parent execution context.
 

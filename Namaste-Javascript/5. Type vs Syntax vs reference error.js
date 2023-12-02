@@ -39,17 +39,18 @@
 
 // const d;
 
+// if (true)
+
 
 /*
  
   Reference Error
   ---------------
-
     error thrown when a variable is not defined ( or not yet initialized ) in its current scope. 
 
     note🚨
       if this error is unhandled ( uncaught ), JS engine would throw this error and stop executing scripts further.
-      
+
 */
 
   // example
