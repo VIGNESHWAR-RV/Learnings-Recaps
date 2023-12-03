@@ -13,7 +13,7 @@
 
     nested block scope is also possible, once can create multiple block scope nested inside block scope.
 
-    block scope also follows scope chain in same manner.
+    block scope also follows scope chain in same manner. ( multiple block memory spaces will be created in same execution context  )
 
     block memory space will be removed once the specific block statements are executed.
       
@@ -60,3 +60,55 @@ function a() {
 }
 
 a();
+
+/*
+  Explanation
+  -----------
+
+    Global Execution context along with Global Object ( window ) is created.
+
+    Memory Allocation phase
+    -----------------------
+      function a is defined along with its code.
+    
+    Code Execution phase
+    --------------------
+      function a invocation is executed and new execution context for function a is created
+
+      Memory Allocation phase of function a invocation
+      ------------------------------------------------
+        variable 'b' in line ( let b = true ) is declared and initialized with undefined in local memory space ( scope ) of function a's execution context 
+        variable 'b' in line ( let b = 1 ) inside if condition block is declared and initialized with undefined in block memory space ( scope ) of function a's execution context.
+        variable 'c' in line ( const c = 5 ) inside if condition block is declared and initialized with undefined in block memory space ( scope ) of function a's execution context.
+        variable 'd' in line ( var d = 3 ) inside if condition block is declared and initialized with undefined in local memory space ( scope ) of function a's execution context.
+        
+        variable 'b' in line ( let b = 4 ) inside the nested block is declared and initialized with undefined in a second block memory space ( scope ) of function a's execution context.
+        variable 'c' in line ( const c = 5 ) inside the nested block is declared and initialized with undefined in a second block memory space ( scope ) of function a's execution context.
+        
+      Code Execution phase
+      --------------------
+        variable 'b' defined in the local memory space ( scope ) will be assigned with true ( let b = true )
+        if block condition is validated ( b is true ) // since true, the inner codes will be executed
+          variable 'b' defined in block memory space ( scope ) is assigned with 1 ( let b = 1 )
+          variable 'c' defined in block memory space ( scope ) is assigned with 2 ( const c = 2 )
+          variable 'd' defined in local memory space ( scope ) will be assigned with 3 ( var d = 3 )
+  
+          inner block starts to execute
+            variable 'b' defined in the second block memory space ( scope ) will be assigned with 4 ( let b = 4 )
+            variable 'c' defined in the second block memory space ( scope ) will be assigned with 5 ( const c = 5 )
+            variable 'd' defined in local memmory space ( scope ) will be re-assigned from 3 to 6 ( d = 6 );
+            line ( console.log(b) ) inside nested block will log 4 // nearest block value ( second block memory )
+            line ( console.log(c) ) inside nested block will log 5 // nearest block value ( second block memory )
+            line ( console.log(d) ) inside nested block will log 6 // local memory space value
+          once inner block execution is completed , the second block memory space ( scope ) is removed and garbage collected.
+          
+          line ( console.log(b) ) inside the if block will log 1 // nearest block value ( first block memory )
+          line ( console.log(c) ) inside the if block will log 2 // nearest block value ( first block memory )
+          line ( console.log(d) ) inside the if block will log 6 // local space memory value
+        
+          once if block execution is completed, the first block memory space ( scope ) is removed and garbage collected.
+        last line ( console.log(b) ) inside the function a will log true // local memory space value
+
+        once function 'a' execution is completed, the execution context is removed from the stack and garbage collected.
+
+*/
