@@ -3,7 +3,7 @@
   Function Statement / Function Declaration
   -----------------------------------------
 
-    - functions defined ( or ) declared directly in the code
+    - functions defined ( or ) declared directly in the code ( named functions )
     - gets defined in the memory allocation phase of execution context ( so hoisted )
 
     function a() {
