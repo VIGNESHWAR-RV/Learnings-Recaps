@@ -20,7 +20,7 @@
         -------
             in javascript engine, the code is parsed and tokens are generated for all the keywords in code.
             then the tokens are passed to syntax parser to create AST ( Abstract Syntax Tree )
-            then in JIT compiler, AST is both interpreted ( line by line conversion to byte code ) and compiled ( lines optimised to produce efficient byte code ).
+            then AST is both interpreted ( line by line conversion to byte code ) and compiled ( lines optimised to produce efficient byte code ). ( JIT compilation )
             then the byte code is executed in the call stack with data stored in heap memory of JS Engine. ( execution context with two phases ( memory allocation & code execution) ).
         
       asynchronous execution
