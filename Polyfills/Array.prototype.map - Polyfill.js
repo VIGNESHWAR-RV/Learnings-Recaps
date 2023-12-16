@@ -15,7 +15,7 @@ Array.prototype.mapPolyfill = function(callback, optionalThisReferer) {
   return mappedArr;
 }
 
-let arrCount = 2000;
+let arrCount = 20;
 let arr = [];
 for(let i=0;i<arrCount;i++) {
   arr[i] = 0;
@@ -30,6 +30,17 @@ const t3 = performance.now();
 arr.mapPolyfill((value, index)=> value + index);
 const t4 = performance.now();
 console.log((t4 - t3) / 1000);
+
+// [1].map(function(value, index) {
+//   console.log(this);
+//   return value + index;
+// });
+// [1].mapPolyfill(function(value, index) {
+//   console.log(this);
+//  return  value + index
+// });
+
+// console.log(Array.prototype.mapPolyfill.toString());
 
 
 
