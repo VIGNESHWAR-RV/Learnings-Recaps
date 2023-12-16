@@ -26,13 +26,13 @@
     
       let type variables
       ------------------
-        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context. ( in separate memory ( script ) incase of global execution context )
+        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase theyare defined inside block )
           ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
       const type variables
       --------------------
-        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context. ( in separate memory ( script ) incase of global execution context )
+        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase theyare defined inside block )
           ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
