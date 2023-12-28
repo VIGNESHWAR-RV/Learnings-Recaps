@@ -12,7 +12,7 @@ call, apply , bind
 
     apply - similar to call method but necessary arguments are passed in array. 
 
-    bind - similar to call, apply - but instead of invoking the function , returns th function so it can be invoked later point of time. 
+    bind - similar to call, apply - but instead of invoking the function , returns the function so it can be invoked later point of time. 
     
     example
     -------

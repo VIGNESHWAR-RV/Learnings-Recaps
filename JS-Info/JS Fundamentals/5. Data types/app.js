@@ -31,7 +31,7 @@
    or mathematical operation on non-numeric values ( "Number" / 2 )
 
    NaN is sticky
-   mathematical operations on NaN results again in NaN ( except NaN ** 0 is 1 ) ( ** - exponentiation )
+   mathematical operations on NaN results again in NaN ( except NaN ** 0 is 1 ) ( ** - power )
 
    Doing Maths in JS is always safe since it wouldn't throw any fatal error
    At worst, it results in NaN ( sometimes might be difficult to debug )
@@ -84,7 +84,7 @@
      it dont support embedding functionality
 
   -> backtics are extended functionality quotes.
-      it enables to insert variables and expressions inside string by wrapping with ${}
+      it enables inserting variables and expressions inside string by wrapping with ${}
       the expression is evaluated and result becomes part of the string.
 
   ex: 

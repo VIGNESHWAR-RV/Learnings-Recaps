@@ -74,7 +74,7 @@ To define variables, we use three keywords
    - ⚠️not recommended to use letters from other langauges ( english is generalized )
          🚫 let имя = 'check';
    - ⚠️should not use reserved words - ( let, var, const, return , class , function , Number, String, Boolean, Array, Object, Symbol 
-        switch, case, break and so on ) 
+        switch, case, break and ...so on ) 
          🚫 let return = 5;
    - ⚠️Avoid declaring multiple variables in single line ( could be confusing )
          🚫 let name = "RV", age = 24, language = "tamil" 

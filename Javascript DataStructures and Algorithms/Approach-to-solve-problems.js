@@ -127,7 +127,7 @@ console.log(sumOfPreviousNumbers(arr));
   Look back & refactor
   --------------------
 
-    instead of returning new array , we can option to be immutable or mutable
+    instead of returning new array , we can have option to choose immutable or mutable
     instead of only typeof check for number, custom function for number validation could be added;
 
 */
