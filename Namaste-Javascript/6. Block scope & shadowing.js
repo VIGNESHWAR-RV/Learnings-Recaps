@@ -3,7 +3,7 @@
 
   Block ( compound statement )
   -----
-    block is a way to group statements as one where JS expects a single statements
+    block is a way to group statements as one where JS expects a single statement.
 
   Block Scope
   ----- -----
@@ -20,7 +20,7 @@
 
   Shadowing
   ---------
-    Variables defined inside the block has more priority pointing reference inside the block ( shadowing ) than variables defined outside the block.
+    Variables defined inside the block has more priority in pointing reference inside the block ( shadowing ) than variables defined outside the block.
     its due to being the closest scope ( memory ) available while accessing the variable.
 
     Note 🚨

@@ -7,7 +7,7 @@
     
     Lexical environment of the execution context is its local memory space and lexical environment of its parent execution context.
 
-    Lexical environment for global execution context is only its local memory space since it has no ( null ) parent further.
+    Lexical environment for global execution context is only its local memory space since it has no parent  ( null ) further.
 
   Scope chain
   -----------
