@@ -21,7 +21,7 @@
     Variable type ( var, let, const ) play major role in memory allocation phase
       var type variables
       ------------------
-        Memory Allocation phase - variable is declared and initialized with undefiend value
+        Memory Allocation phase - variable is declared and initialized with undefined value
         Code execution phase - variable is assigned with actual value
     
       let type variables
@@ -94,7 +94,7 @@ i) Global Execution Context creation
      - variable result gets declared and initialized with undefined ( result = undefined )  
 
    Code Execution Phase
-     - Variable examArr gets assignes with its respective value ( examArr = ["I am" , "recursively", "created", "exectuion-context"] ) 
+     - Variable examArr gets assigned with its respective value ( examArr = ["I am" , "recursively", "created", "exectuion-context"] ) 
      - in order to assign value to result varibale, recursion function call will start to execute
 
         ii) Exectuion context creation for first recursion call
@@ -108,7 +108,6 @@ i) Global Execution Context creation
               - variables inside the if statement ( second line ) gets executed for boolean validation 
                 index = 0; arr.length = 4
                 (0 === (4 - 1)) // false 
-              - Execution is switched backed to next line of parent execution context ( Exectuion context of first recursion call )   
               - recursion call in the return statement ( third line ) gets executed 
                     
                 iii) Execution context creation for second recursion call 
@@ -121,8 +120,7 @@ i) Global Execution Context creation
                       - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=1 ( 0 + 1 ) ) 
                       - variables inside the if statement (s econd line ) gets executed for boolean validation 
                         index = 1; arr.length = 4
-                        (1 === (4 - 1)) // false 
-                      - Execution is switched backed to next line of parent execution context ( Exectuion context of second recursion call )   
+                        (1 === (4 - 1)) // false  
                       - recursion call in the return statement ( third line ) gets executed 
               
                         iv) Execution context creation for third recursion call 
@@ -136,7 +134,6 @@ i) Global Execution Context creation
                               - variables inside the if statement ( second line ) gets executed for boolean validation 
                                 index = 2; arr.length = 4
                                 (2 === (4 - 1)) // false 
-                              - Execution is switched backed to next line of parent execution context ( Exectuion context of third recursion call )  
                               - recursion call in the return statement ( third line ) gets executed 
     
                                 v) Execution context creation for fourth recursion call 

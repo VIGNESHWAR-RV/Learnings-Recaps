@@ -37,7 +37,7 @@ To define variables, we use three keywords
   NOTE: 
     non-primitive data types are still mutable even when they are defined with const;
     const arr = [1,2,3,4];
-    arr = [2,3,4,5]; // trhows error
+    arr = [2,3,4,5]; // throws error
     arr[0] = 2 // works
  ------------------------------------------------------------------------------------
 

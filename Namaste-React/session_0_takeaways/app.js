@@ -5,7 +5,7 @@ const welcomeReact = React.createElement(
  "h1", // tag name
  {id: "1",  // tag attributes as object
   name: "Header",
-  "media": "mobile", // custom attributes is also can be passed
+  "media": "mobile", // custom attributes can also be passed
   "children": "Hello from props overriding children" // wont work as its being overriden by third parameter
   },
   "Hello World from React!" // (also we can pass React element object as third argument to support nested React elements)

@@ -11,9 +11,9 @@
 
     var type variables gets defined in the local memory space of execution context ( its global memory space incase of global execution context )
 
-    nested block scope is also possible, we can create multiple block scope nested inside block scope.
+    nested block scope is also possible, we can create multiple block scope nested inside block scope. ( multiple block memory spaces will be created in same execution context  )
 
-    block scope also follows scope chain in same manner. ( multiple block memory spaces will be created in same execution context  )
+    block scope also follows scope chain in same manner.
 
     block memory space will be removed once the specific block statements are executed.
       

@@ -4,7 +4,7 @@
 // Totally, 8 data types is JS ( number, BigInt, string, boolean, null, undefined, object, symbol )
 // In JS, variables can have any type at any time ( dynamic & weakly typed)
    // dynamic -- type of value in a variable is defined during the runtime ( on their execution )
-   // weakly typed --  same variable can be initialized with values of different types, whenever needed 
+   // weakly typed --  same variable can be initialized with values of different types, whenever needed and type coercion
 /*
   ex: 
     let num = 6;
@@ -96,7 +96,7 @@
    Note⚠️
    ------
       There is no char type in JS.
-      there are special character type for single character in Java and C , called "char"
+      there is special character type for single character in Java and C , called "char"
       JS has only string type ( string ) and it may consist of zero (or) one (or) many characters.    
 
 */ 

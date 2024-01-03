@@ -78,7 +78,7 @@
           Callbacks that go in callback queue ( task queue ) - user-event callbacks, setTimeout, setInterval, code in console, code under <script> tag
           
           event loop will invoke every callback function in microtask queue and removes the invoked one from queue. ( First in First out )
-            once microtask is emptied, then it moves to the callback queue and invoke the callbacks present in order.
+            once microtask queue is emptied, then it moves to the callback queue ( task queue ) and invoke the callbacks present in order.
     
           STARVATION OF TASK IN TASK QUEUE
           --------------------------------

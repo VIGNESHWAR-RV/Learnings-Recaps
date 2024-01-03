@@ -8,7 +8,7 @@ call, apply , bind
 
   Solution by call, apply, bind
   -----------------------------
-    call - method can be invoked directly by passing object reference which the method should refer during execution and necessary arguments along with reference.
+    call - method can be invoked directly by passing object reference which the method should refer during its execution and necessary arguments along with reference.
 
     apply - similar to call method but necessary arguments are passed in array. 
 
