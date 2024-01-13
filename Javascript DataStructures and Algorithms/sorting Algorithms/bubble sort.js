@@ -6,21 +6,25 @@ Bubble Sort - bubbling of higher values to the last
 
 */
 
-
 function bubbleSort(arr) {
   
-  for(let i=0; i<arr.length; i++) {
-    for (let j = 0; j < i; j++) {
+  for(let i=1; i<arr.length; i++) {
+    let isNoSwapMade = true; 
+    for (let j=0; j<arr.length-i; j++) {
+      console.log("iterations");
       if (arr[j] > arr[j+1]) {
         // let temp = arr[j];
         // arr[j] = arr[j+1];
         // arr[j+1] = temp;
         [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+        isNoSwapMade = false;
       }
-      console.log("iterations");
+    }
+    if (isNoSwapMade) {
+        break;
     }
   }
   return arr;
 }
 
-console.log(bubbleSort([4,6,3,2,8,10,15,13,11]));
+console.log("bubble sort", bubbleSort([4,10,15,13,11]));
