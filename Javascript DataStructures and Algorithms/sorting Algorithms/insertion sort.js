@@ -5,8 +5,11 @@
 
   merits
   ------
-     performs well if array requires sorting when elements are dynamically added to the array.
+    performs well if array requires sorting when elements are dynamically added to the array.
        ( we can insert elements at any place with just single loop of array ) ( similar to bubble sort );
+
+    performs well on nearly sorted array 
+       ( avoids unnecessary checks )
 
 */
 

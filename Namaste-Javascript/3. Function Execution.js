@@ -27,7 +27,7 @@
     variables will be assigned with their actual value.  
     block statements ( {} ) would be executed in same execution context. ( creates a separate memory ( block ) for let,const type variables ) 
     function invocations would be executed by creating a separate execution context.
-    function invocations inside a function would also be executed by creating a separate execution context but will be scoped as closure. 
+    function invocations inside a function would also be executed by creating a separate execution context but will create a extra memory space ( closure scope ) if data from parent function are accessed. 
 
 */
 

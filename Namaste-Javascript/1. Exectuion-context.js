@@ -26,13 +26,13 @@
     
       let type variables
       ------------------
-        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase theyare defined inside block )
+        Memory Allocation phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase they are defined inside block )
           ----------- Temporal Dead Zone ------------- ( accessing varibales in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
       const type variables
       --------------------
-        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase theyare defined inside block )
+        Memory Alloction phase - variable is declared and initialized with undefined value in the same execution context. ( script scope incase of global execution context ) ( block scope incase they are defined inside block )
           ----------- Temporal Dead Zone ------------- ( accessing variables in this zone throws reference error ( "not defined" ) error )
         Code execution phase - variable is assigned with actual value
 
@@ -73,12 +73,11 @@ console.log(result);
 // Doubt
 /*
   block statements ( {} ) create separate execution context ? 
+   thoughts: 
     they might as they have separate block scoped variables
     they might not as they have no return statement defined in them to switch back the execution to parent execution context.
 
-    Here followed with idea that they would create separate execution context.
-
-    Ans: It executes in the same execution context but creates a separate memory ( block ) for let,const type variables 
+    Ans: It executes in the same execution context but creates a separate memory space ( block scope ) for let,const type variables 
 */ 
 
 /*

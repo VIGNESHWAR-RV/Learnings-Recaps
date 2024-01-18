@@ -28,7 +28,7 @@
         
       asynchronous execution
       ----------------------
-        - proceeding to next line execution instead of waiting for time consuming tasks to complete.
+        - proceeding to next line of execution instead of waiting for time consuming tasks to complete.
           - once such tasks are completed , the registered callback/suspended functions will be executed. 
 
         - Javascript run-time environment in browser has required programs to execute javascript asynchoronously

@@ -7,7 +7,7 @@
 
   Block Scope
   ----- -----
-    memory space specifically created for holding variables ( let, const ) defined inside the block
+    memory space specifically created for holding variables ( let, const type variables ) defined inside the block
 
     var type variables gets defined in the local memory space of execution context ( its global memory space incase of global execution context )
 

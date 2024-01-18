@@ -42,7 +42,7 @@ To define variables, we use three keywords
  ------------------------------------------------------------------------------------
 
   - ⚠️🚫☠️ defining variables without keywords under "use strict" throws error
-          message = "hello JS";
+        ex: message = "hello JS";
         without "use strict"
           message = "hello JS";  --->  var message = "hello JS";
   - ⚠️🚫☠️ declaring same variable twice with let or const in same scope would throw error

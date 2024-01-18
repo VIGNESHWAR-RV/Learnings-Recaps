@@ -12,7 +12,7 @@
   Scope chain
   -----------
 
-    Scope - place where to look up for variables and functions.
+    Scope - memory space where to look up for variables and functions.
 
     scope chain - chain of lexical environments from the currently executing execution context to the global execution context.
     
