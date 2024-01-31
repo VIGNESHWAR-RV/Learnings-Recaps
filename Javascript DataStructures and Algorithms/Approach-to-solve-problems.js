@@ -28,7 +28,7 @@
       - temporarily ignore the difficulty and try writing a simplified solution
       - later incorporate the difficulty into the solution
     
-  5. Look back & Refactor ( important step ) ( developer's growth part )
+  5. Look back & Refactor ( important step ) ( growth part )
       - ask questions yourself on possible aspects ( performance, requirement, readability ) and so on
 
         Questions like
@@ -148,13 +148,14 @@ function sumOfPreviousNumbersV1(arr, isMutable) {
       accumulator += arr[i];
       output[i] = accumulator;
     } else {
-        return [];
+        return []; // only if there are invalid numbers in array
     }
   }
 
   return output;
 }
 
+// common function 
 isValidNumber = function(num) {
   return ( typeof num == "number" && !Number.isNaN(num) && Number.isFinite(num) && num >= Number.MIN_SAFE_INTEGER &&  num <= Number.MAX_SAFE_INTEGER );
 };

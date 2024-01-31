@@ -33,15 +33,15 @@ function countUniqueValues(arr){
       // let b = 1;
       
       // loop over the array
-        for ( let i = 0; i < arr.length; i++) {
+        for ( let i = 1; i < arr.length; i++) {
             
           // compare the updated variable to other variable whether the elements they are pointing is different
-            if (arr[a] != arr[i + 1]) {
+            if (arr[a] != arr[i]) {
               // if different move the value next to variable ( a ) that is pointing initially and move the variable ( a ) one step and move the variable ( b ) to next step
                 a++;
                 // arr[a] = arr[i + 1];
             }
-            // at each loop , update one variable ( b ) to refer to its current element in the loop
+                        // at each loop , update one variable ( b ) to refer to its current element in the loop
           //   b += 1;
   
         }

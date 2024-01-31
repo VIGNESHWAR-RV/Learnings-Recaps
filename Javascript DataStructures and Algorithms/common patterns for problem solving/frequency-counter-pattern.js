@@ -4,12 +4,15 @@
 
    Problem
    -------
-      when we have to check for an element in two arrays, we end up looping second array inside the loop of first array ( O(n^2) )
+      when we have to check for an elements in two arrays, we end up looping second array inside the loop of first array ( O(n^2) )
 
    How this pattern helps
    ----------------------
       instead of nested looping, looping arrays individually to collect information of its element and its frequency ( repeatation ) in separate objects.
       then looping the properties of those objects ( any one ), to find whether the respective element ( property ) is present in both object with exact frequencies.
+
+      n loops for 3 times
+      ie O(3n) -> O(n)
       
 */
 
@@ -125,6 +128,7 @@
         return true;
       }
 
+      console.log("-------------------");
       console.log(isAnagramV1("More", "Rome"));
       console.log(isAnagramV1("Table", "Labet"));
       console.log(isAnagramV1("bat", "table"));
@@ -160,8 +164,73 @@
         return true;
       }
 
+      console.log("-------------------");
       console.log(isAnagramV2("More", "Rome"));
       console.log(isAnagramV2("Table", "Labet"));
       console.log(isAnagramV2("bat", "table"));
+
+
+      // we can reduce the iterations to half using two pointer approach
+
+      function isAnagramV3(str1, str2) {
+        if (typeof str1 !== 'string' || typeof str2 !== 'string' || str1.length !== str2.length) {
+          return false;
+        }
+
+        let lookup = {};
+        let pointerFromEnd = str1.length - 1;
+        let char = "";
+        for(let pointerFromStart=0; pointerFromStart<str1.length; pointerFromStart++) {
+          if (pointerFromStart < pointerFromEnd) {
+            char = str1[pointerFromStart].toLowerCase();
+            lookup[char] = (lookup[char] || 0) + 1;
+            char = str1[pointerFromEnd].toLowerCase();
+            lookup[char] = (lookup[char] || 0) + 1;
+            if(pointerFromEnd - 1 !== pointerFromStart + 1) {
+              pointerFromEnd--;
+            }
+          } else {
+            break;
+          }
+        }
+
+        pointerFromEnd = str2.length - 1;
+
+        for(let pointerFromStart=0; pointerFromStart<str2.length; pointerFromStart++) {
+          if (pointerFromStart < pointerFromEnd) {
+            char = str2[pointerFromStart].toLowerCase();
+            if(!lookup[char]) {
+              return false;
+            } else {
+              lookup[char]--;
+            }
+            if(pointerFromEnd - 1 !== pointerFromStart + 1) {
+              char = str2[pointerFromEnd].toLowerCase();
+              if(!lookup[char]) {
+                return false;
+              } else {
+                lookup[char]--;
+              } 
+              pointerFromEnd--;
+            }
+          } else {
+            break;
+          }
+        }
+
+        return true;
+      }
+
+      console.log("-------------------");
+      console.log(isAnagramV3("More", "Rome"));
+      console.log(isAnagramV3("Table", "Labet"));
+      console.log(isAnagramV3("bat", "table"));
+
+      // but is it really doing less number of operations by reducing the iterations to half ?
+      // Answer: No. infact its does more number of operations and definitely not readable
+
+      // Lesson
+         // not only number of loops matters
+         // number of operations per loop also matters
 
         
