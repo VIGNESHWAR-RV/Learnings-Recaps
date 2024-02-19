@@ -60,7 +60,7 @@
         Process
         -------
           - All ( user-event listeners, observers, promises, setTimeout, setInterval ) callbacks are registered in web API.
-          - once the ( user-events/observers , promises/setTimeout/setInterval ) triggers/completes the registered callbacks are pushed to callback queue and microtask queue based on it's priority.
+          - once the ( user-events/observers/promises/setTimeout/setInterval ) triggers/completes the registered callbacks are pushed to callback queue and microtask queue based on it's priority.
           - Event loop will keep checking callstack in JS engine whether it is empty.
               if callstack is empty and if there are callbacks in microtask queue / callback queue, 
                 event loop will invoke the registered callback function which will be executed in callstack. ( order of invocation depend on position of callback in queue )

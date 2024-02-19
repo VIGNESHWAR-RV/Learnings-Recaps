@@ -4,7 +4,7 @@ call, apply , bind
 ------------------
   problem
   -------
-    Javascript does not support extends until 2017. so it was difficult to share methods between different object.
+    Javascript does not support "extends" keyword until 2017. so it was difficult to share methods between different object.
 
   Solution by call, apply, bind
   -----------------------------

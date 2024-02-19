@@ -15,7 +15,7 @@
   ------ ---------- -----
 
   All variables within the scope environment are declared and initialized with undefined value;
-  function definition ( only named functions ) && !( function expressions (anonymous) && arrow function && IIFE  ) are defined with the definition code
+  function definition ( only named functions a.k.a function statements ) && !( function expressions (anonymous) && arrow function && IIFE  ) are defined with the definition code
 
   Note 🚨
     Variable type ( var, let, const ) play major role in memory allocation phase
@@ -70,15 +70,6 @@ function recursion(arr, index=0) {
 let result = recursion(examArr);
 console.log(result);
 
-// Doubt
-/*
-  block statements ( {} ) create separate execution context ? 
-   thoughts: 
-    they might as they have separate block scoped variables
-    they might not as they have no return statement defined in them to switch back the execution to parent execution context.
-
-    Ans: It executes in the same execution context but creates a separate memory space ( block scope ) for let,const type variables 
-*/ 
 
 /*
 Explanation - Please take a breadth 
@@ -88,9 +79,9 @@ i) Global Execution Context creation
    ---------------------------------
   
    Memory Allocation Phase
-     - variable examArr gets declared and initialized with undefined ( examArr = undefined )
+     - variable examArr gets declared in script scope and initialized with undefined ( examArr = undefined )
      - function recursion gets declared along with its code;
-     - variable result gets declared and initialized with undefined ( result = undefined )  
+     - variable result gets declared in script scope and initialized with undefined ( result = undefined )  
 
    Code Execution Phase
      - Variable examArr gets assigned with its respective value ( examArr = ["I am" , "recursively", "created", "exectuion-context"] ) 
@@ -104,7 +95,7 @@ i) Global Execution Context creation
         
             Code Execution Phase
               - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=0 // default value ) 
-              - variables inside the if statement ( second line ) gets executed for boolean validation 
+              - if statement ( second line ) gets executed for boolean validation 
                 index = 0; arr.length = 4
                 (0 === (4 - 1)) // false 
               - recursion call in the return statement ( third line ) gets executed 
@@ -117,7 +108,7 @@ i) Global Execution Context creation
 
                     Code Execution Phase
                       - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=1 ( 0 + 1 ) ) 
-                      - variables inside the if statement (s econd line ) gets executed for boolean validation 
+                      - if statement ( second line ) gets executed for boolean validation 
                         index = 1; arr.length = 4
                         (1 === (4 - 1)) // false  
                       - recursion call in the return statement ( third line ) gets executed 
@@ -130,7 +121,7 @@ i) Global Execution Context creation
                     
                             Code Execution Phase
                               - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=2 ( 1 + 1 ) ) 
-                              - variables inside the if statement ( second line ) gets executed for boolean validation 
+                              - if statement ( second line ) gets executed for boolean validation 
                                 index = 2; arr.length = 4
                                 (2 === (4 - 1)) // false 
                               - recursion call in the return statement ( third line ) gets executed 
@@ -143,7 +134,7 @@ i) Global Execution Context creation
                        
                                    Code Execution Phase
                                      - variabled defined in parameter ( arr, index ) gets assigned with respective value ( arr = ["I am" , "recursively", "created", "exectuion-context"] , index=3 ( 2 + 1 ) ) 
-                                     - variables inside the if statement ( second line ) gets executed for boolean validation 
+                                     - if statement ( second line ) gets executed for boolean validation 
                                        index = 3; arr.length = 4
                                        (3 === (4 - 1)) // true
                                      - Since if statement is true, it returns with arr[i] => arr[3] => "exectuion-context"
@@ -162,8 +153,7 @@ i) Global Execution Context creation
      - the last line ( console.log ) gets executed and logs the result in console. 
      
      - after executing all the statements , the global context also gets destroyed and garbage collected.
-                                      
-           
+                                                 
 */
 
 

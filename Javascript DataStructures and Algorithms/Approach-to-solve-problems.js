@@ -148,7 +148,7 @@ function sumOfPreviousNumbersV1(arr, isMutable) {
       accumulator += arr[i];
       output[i] = accumulator;
     } else {
-        return []; // only if there are invalid numbers in array
+      return []; // only if there are invalid numbers in array
     }
   }
 

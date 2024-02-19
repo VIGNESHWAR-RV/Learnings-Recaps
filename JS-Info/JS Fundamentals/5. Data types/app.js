@@ -31,7 +31,7 @@
    or mathematical operation on non-numeric values ( "Number" / 2 )
 
    NaN is sticky
-   mathematical operations on NaN results again in NaN ( except NaN ** 0 is 1 ) ( ** - power )
+   mathematical operations on NaN results again in NaN ( except NaN ** 0 is 1 ) ( note: ** - power operator )
 
    Doing Maths in JS is always safe since it wouldn't throw any fatal error
    At worst, it results in NaN ( sometimes might be difficult to debug )
@@ -69,7 +69,7 @@
      let num1 = 9007199254740993n;
      let num2 = 6n;
 
-   bigint is not supported in IE
+   bigInt is not supported in IE
 
 */
 

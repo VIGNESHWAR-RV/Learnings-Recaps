@@ -62,10 +62,15 @@ function countUniqueValues(arr){
 
   function countUniqueValuesV1(arr) {
     let lookup = {};
+    let count = 0;
     for(let i=0; i<arr.length; i++) {
-      lookup[arr[i]] = (lookup[arr[i]] | 0) + 1;
+      if(!lookup[arr[i]]) {
+        count++;
+        lookup[arr[i]] = 0;
+      }
+      lookup[arr[i]] += 1;
     }
-    return Object.keys(lookup).length;
+    return count;
   }
 
   console.log("-------------------------");

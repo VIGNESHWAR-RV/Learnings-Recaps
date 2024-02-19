@@ -171,7 +171,7 @@
 
 
       // we can reduce the iterations to half using two pointer approach
-
+      // 💀 rejected
       function isAnagramV3(str1, str2) {
         if (typeof str1 !== 'string' || typeof str2 !== 'string' || str1.length !== str2.length) {
           return false;

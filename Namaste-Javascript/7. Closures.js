@@ -8,7 +8,7 @@
     closure will only be created if variables outside the function ( function's lexical environment ) are accessed inside that function.
     Also closure is created with variables that are only accessed inside the function. ( other variables are smartly garbage collected as they have no reference to access )
     
-    due to closure, a function can access variables of other functions in the execution context where it was defined.
+    due to closure, a function can access variables of its parent functions in the execution context where it was defined.
 
 */
 

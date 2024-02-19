@@ -10,7 +10,7 @@
   inside function scope,
     ( non-strict mode )
      - if function is invoked with object reference, then this pointer inside function refers to that object 
-     - if this pointer is defined as ( undefined or null ), it will always be replaced with global object. ( this substitution )
+     - if this pointer is undefined or null, it will always be replaced with global object. ( this substitution )
      - if the function is arrow function, this pointer will always refer to the enclosing lexical context of that function.
      - function invoked with new keyword ( constructor function ), it always creates a new object instance and this pointer will refer to that object.
     ( strict mode )
@@ -22,6 +22,8 @@
     Note🚨
     ------
       Arrow functions cannot be invoked with new keyword ( would get type error -> "not a constructor" );
+
+      🚧 trying to assign value to this manually throws syntax error.
 
   Additionally this pointer reference can be changed with ( call, apply, bind ) methods
 

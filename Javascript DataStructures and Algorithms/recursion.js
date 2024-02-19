@@ -47,6 +47,7 @@
 
       Demerits
       --------
+        generally, function invocation will always create new execution context.
         function might become little complex to understand as they are impure.
       
 */

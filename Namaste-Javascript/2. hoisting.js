@@ -3,7 +3,7 @@
 Hoisting
 --------
 
-In Memory Allocation phase, All the variables are declared and initialized with undefined and named functions gets defined before execution phase
+In Memory Allocation phase, All the variables are declared and initialized with undefined and named functions ( function statements ) gets defined before execution phase
 which allows them to access them before their definition line. 
 
 this phenomenon is known as hoisting. 
