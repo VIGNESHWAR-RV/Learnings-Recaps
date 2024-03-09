@@ -9,7 +9,7 @@ const welcomeReact = React.createElement(
   "children": "Hello from props overriding children" // wont work as its being overriden by third parameter
   },
   "Hello World from React!" // (also we can pass React element object as third argument to support nested React elements)
-  // (while React el conerting to HTML el) 
+  // (while React el converting to HTML el) 
      // if its primitive (), it is inserted to html tag with innerText ( not innerHTML )
      // if its non-primitive ( [one || array] of react element object ), creates the respective html and inserts to parent element 
      // if its non-primitive ( non React element object ), throws an error

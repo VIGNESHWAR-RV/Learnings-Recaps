@@ -21,7 +21,7 @@
     Variable type ( var, let, const ) play major role in memory allocation phase
       var type variables
       ------------------
-        Memory Allocation phase - variable is declared and initialized with undefined value
+        Memory Allocation phase - variable is declared and initialized with undefined value. ( global scope incase of global execution context ) ( local scope incase they are defined inside functions )
         Code execution phase - variable is assigned with actual value
     
       let type variables
@@ -50,7 +50,7 @@
   Note🚨
 
     function calls will create new Execution-context with its own memory allocation phase and exectuion phase to execute its code
-    block statements ( {} ) will execute in same execution context but creates a separate memory ( block ) for variables ( let type , const type ) inside them.
+    block statements ( {} ) will execute in same execution context but creates a separate memory ( block ) scope for variables ( let type , const type ) inside them.
     
     nested execution-context will and can be invoked further and further until reaching the stack overflow limit
   
