@@ -1,31 +1,24 @@
-export class CreateStore {
-  previousStateValues = {};
-  subScribeList = new Map();
+export function createStore(initialState) {
+  const previousStateValues = new Map();
+  const subScribeList = new Map();
+  let currentState = deepFreeze(structuredClone(initialState));
+  let timer;
 
-  constructor(initialState) {
-    if (initialState && typeof initialState === "object") {
-      this.currentState = this.deepFreeze(structuredClone(initialState));
-    } else {
-      this.currentState = {};
-    }
-  }
-
-  deepFreeze = (obj) => {
+  function deepFreeze(obj) {
     if (obj && typeof obj === "object" && !Object.isFrozen(obj)) {
       Object.freeze(obj);
-      Object.getOwnPropertyNames(obj).forEach((prop) =>
-        this.deepFreeze(obj[prop])
-      );
+      Object.getOwnPropertyNames(obj).forEach((prop) => deepFreeze(obj[prop]));
     }
     return obj;
-  };
+  }
 
-  getStoreValue = (pathString) => {
-    if (pathString === "$store") { // keyword to use in order to listen to entire store
+  function getStoreValue(pathString) {
+    if (pathString === "$store") {
+      // keyword to listen to entire store
       return this.currentState;
     }
     pathString = pathString.split(".");
-    let value = this.currentState;
+    let value = currentState;
     for (let i = 0; i < pathString.length; i++) {
       if (value.hasOwnProperty(pathString[i])) {
         value = value[pathString[i]];
@@ -34,79 +27,61 @@ export class CreateStore {
       }
     }
     return value;
-  };
+  }
 
-  subscribe = (property, func) => {
-    let listeners = this.subScribeList.get(property);
-    if (listeners && !listeners.get(func)) {
-      listeners.set(func, func);
-    } else if (!listeners) {
-      let map = new Map();
-      map.set(func, func);
-      this.subScribeList.set(property, map);
+  function subscribe(selector, cb) {
+    let callbackSet = subScribeList.get(selector);
+    if (callbackSet && !callbackSet.has(cb)) {
+      callbackSet.add(cb);
+    } else if (!callbackSet) {
+      let callbackSet = new Set();
+      callbackSet.add(cb);
+      subScribeList.set(selector, callbackSet);
     }
 
-    let propetyCurrentValue = this.getStoreValue(property);
-    this.previousStateValues[property] = propetyCurrentValue;
+    let previousVal = typeof selector === "function" ? selector(currentState) : getStoreValue(selector);
+    previousStateValues.set(selector, previousVal);
 
     return {
-      value: propetyCurrentValue,
       unSubscribe: () => {
-        let propertyMap = this.subScribeList.get(property);
-        propertyMap.delete(func);
+        let propertyMap = subScribeList.get(selector);
+        propertyMap.delete(cb);
         if (propertyMap.size === 0) {
-          this.subScribeList.delete(property);
-          delete this.previousStateValues[property];
+          subScribeList.delete(selector);
+          previousStateValues.delete(selector);
         }
       },
     };
-  };
+  }
 
-  triggerListerners = (list) => {
-    list.forEach((property) => {
-      let updatedValue = this.getStoreValue(property);
-      if (this.previousStateValues[property] !== updatedValue) {
-        this.previousStateValues[property] = updatedValue;
-        const listenerMap = this.subScribeList.get(property);
-        if (listenerMap) {
-          listenerMap.forEach((func) => func(updatedValue));
+  function triggerListerners() {
+    subScribeList.forEach((callbackSet, selector) => {
+      let updatedValue = typeof selector === "function" ? selector(currentState) : getStoreValue(selector);
+      if (previousStateValues.get(selector) !== updatedValue) {
+        previousStateValues.set(selector, updatedValue);
+        if (callbackSet) {
+          callbackSet.forEach((cb) => cb(updatedValue));
         }
       }
     });
-  };
+  }
 
-  publish = (cb) => {
-    queueMicrotask(() => {
-      this.currentState = this.deepFreeze(cb(this.currentState));
-      this.triggerListerners(this.subScribeList.keys());
-    });
-  };
+  function publish(cb) {
+    currentState = deepFreeze(cb(currentState));
+    triggerListerners();
+  }
 
-  debouncedPublish = (timer, cb) => {
-    if (this.timer) {
-      clearTimeout(this.timer);
+  function debouncedPublish(time, cb) {
+    if (timer) {
+      clearTimeout(timer);
     }
-    this.timer = setTimeout(() => {
-      this.publish(cb);
-      this.timer = undefined;
-    }, timer);
-  };
+    timer = setTimeout(() => {
+      publish(cb);
+      timer = undefined;
+    }, time);
+  }
+
+  return { currentState, getStoreValue, subscribe, publish, debouncedPublish };
 }
 
-
-// main responsibilities of state management library
-
-// provide a global store ( should be immutable )
-// provide a way to listen to states in store
-// trigger listeners on state change (advanced:- triggering respective listeners when respective property changed )
-// provide a way to unsubscribe so unnecessary listeners are garbage collected.
-// provide a way to update the state in the store ( in a immutable way )
-
-
-// approach adopted
-
-// property for value of state that need to be listened is passed as string for subscribe ("user.data") => {user: {data: "something"}} 
-// while subscribing, value for that property string is assigned in previousStateValues object. 
-// on state update,
-//  every property string that are checked if they are changed
-//     if changed, respective registered listeners for that properties are triggered which will update the local values in the component they are used.
+// main motive - ( selective rendering on store update )
