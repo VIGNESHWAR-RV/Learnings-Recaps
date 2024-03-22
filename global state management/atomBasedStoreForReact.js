@@ -20,20 +20,19 @@ export function atomStoreForReact () {
       AtomState.setValue(newState);
     };
 
-    return [state, stateUpdater];
+    return [state, stateUpdater, AtomState.reset];
   };
 
   const useAtomOnlySet = (atomObj) => {
-   
+    let AtomState = getAtomState(atomObj);
     const stateUpdater = (newState) => {
-        let AtomState = getAtomState(atomObj);
         if (typeof newState === "function") {
           newState = newState(AtomState.value);
         }
         AtomState.setValue(newState);
     };
 
-    return stateUpdater;
+    return [stateUpdater, AtomState.reset];
   };
 
   return {Atom, useAtom, useAtomOnlySet};
