@@ -3,7 +3,21 @@ export function createAtomStore() {
     
   function subscribe(atomState, cb) {
     atomState.subscribeList.add(cb);
-    return { unsubscribe : () => atomState.subscribeList.delete(cb) };
+    return { 
+      unsubscribe : () => atomState.subscribeList.delete(cb),
+      value: atomState.value
+    };
+  }
+
+  function vanillaSubscribe(atom, cb) {
+    let atomState = getAtomState(atom);
+    atomState.subscribeList.add(cb);
+    cb(atomState.value);
+    return { 
+      unsubscribe : () => atomState.subscribeList.delete(cb),
+      reset: atomState.reset,
+      set: atomState.setValue
+    };
   }
 
   function deepFreeze(obj) {
@@ -22,8 +36,10 @@ export function createAtomStore() {
         value: atom.init,
         subscribeList: new Set(),
         setValue(newVal) {
-          this.value = deepFreeze(newVal);
-          this.subscribeList.forEach((listener) => listener(newVal));
+          if (newVal !== this.value) {
+            this.value = deepFreeze(newVal);
+            this.subscribeList.forEach((listener) => listener(newVal));
+          }
         },
         reset() {
           this.value = atom.init;
@@ -43,6 +59,7 @@ export function createAtomStore() {
       };
     },
     subscribe,
-    getAtomState
+    getAtomState,
+    vanillaSubscribe
   };
 };
