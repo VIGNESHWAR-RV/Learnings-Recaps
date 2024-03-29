@@ -15,7 +15,7 @@ export function createStore(initialState) {
   function getStoreValue(pathString) {
     if (pathString === "$store") {
       // keyword to listen to entire store
-      return this.currentState;
+      return currentState;
     }
     pathString = pathString.split(".");
     let value = currentState;

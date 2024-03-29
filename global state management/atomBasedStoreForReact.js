@@ -23,7 +23,7 @@ export function atomStoreForReact () {
     return [state, stateUpdater, AtomState.reset];
   };
 
-  const useAtomOnlySet = (atomObj) => {
+  const publishAtom = (atomObj) => {
     let AtomState = getAtomState(atomObj);
     const stateUpdater = (newState) => {
         if (typeof newState === "function") {
@@ -35,6 +35,6 @@ export function atomStoreForReact () {
     return [stateUpdater, AtomState.reset];
   };
 
-  return {Atom, useAtom, useAtomOnlySet};
+  return {Atom, useAtom, publishAtom};
 }
 
