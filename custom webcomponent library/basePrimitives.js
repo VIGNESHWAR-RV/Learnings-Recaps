@@ -20,9 +20,12 @@ class Signal {
     }
 
     this.value = nextValue;
-    for (const effect of [...this.subscribers]) {
-      effect.run();
-    }
+
+    requestAnimationFrame(() => {
+      for (const effect of [...this.subscribers]) {
+        effect.run();
+      }
+    });
   }
 
   dispose() {
@@ -67,6 +70,10 @@ class Effect {
     } finally {
       CURRENT_EFFECT = previousEffect;
     }
+
+    if (!this.dependencies.size) {
+      this.dispose();
+    }
   }
 
   dispose() {
@@ -82,10 +89,6 @@ export function signal(initialValue) {
 export function effect(callback) {
   return new Effect(callback);
 }
-
-// ============================================================
-// Reactive Custom Element Base
-// ============================================================
 
 export class BaseElement extends HTMLElement {
   constructor() {
@@ -214,13 +217,14 @@ export class BaseElement extends HTMLElement {
 
           element.appendChild(childElement);
         } else {
+          const textNode = document.createTextNode("");
+
           effect(() => {
-            element.appendChild(
-              document.createTextNode(
-                child instanceof Signal ? String(child.get()) : String(child),
-              ),
-            );
+            textNode.textContent =
+              child instanceof Signal ? String(child.get()) : String(child);
           });
+
+          element.appendChild(textNode);
         }
       }
     }
