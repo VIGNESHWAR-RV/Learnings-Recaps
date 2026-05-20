@@ -31,22 +31,26 @@ export function createStore(initialState) {
 
   function subscribe(selector, cb) {
     let callbackSet = subScribeList.get(selector);
-    if (callbackSet && !callbackSet.has(cb)) {
-      callbackSet.add(cb);
-    } else if (!callbackSet) {
-      let callbackSet = new Set();
-      callbackSet.add(cb);
+
+    if (!callbackSet) {
+      callbackSet = new Set();
       subScribeList.set(selector, callbackSet);
     }
 
-    let previousVal = typeof selector === "function" ? selector(currentState) : getStoreValue(selector);
+    if (!callbackSet.has(cb)) {
+      callbackSet.add(cb);
+    }
+
+    let previousVal =
+      typeof selector === "function"
+        ? selector(currentState)
+        : getStoreValue(selector);
     previousStateValues.set(selector, previousVal);
 
     return {
       unSubscribe: () => {
-        let propertyMap = subScribeList.get(selector);
-        propertyMap.delete(cb);
-        if (propertyMap.size === 0) {
+        callbackSet.delete(cb);
+        if (callbackSet.size === 0) {
           subScribeList.delete(selector);
           previousStateValues.delete(selector);
         }
@@ -56,7 +60,10 @@ export function createStore(initialState) {
 
   function triggerListerners() {
     subScribeList.forEach((callbackSet, selector) => {
-      let updatedValue = typeof selector === "function" ? selector(currentState) : getStoreValue(selector);
+      let updatedValue =
+        typeof selector === "function"
+          ? selector(currentState)
+          : getStoreValue(selector);
       if (previousStateValues.get(selector) !== updatedValue) {
         previousStateValues.set(selector, updatedValue);
         if (callbackSet) {
