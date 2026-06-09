@@ -21,11 +21,12 @@ class Signal {
 
     this.value = nextValue;
 
-    requestAnimationFrame(() => {
-      for (const effect of [...this.subscribers]) {
-        effect.run();
-      }
-    });
+    // ⚠️ we yet have to rerun the effects properly like react schedular
+    // requestAnimationFrame(() => {
+    for (const effect of [...this.subscribers]) {
+      effect.run();
+    }
+    // });
   }
 
   dispose() {
@@ -96,6 +97,7 @@ export class BaseElement extends HTMLElement {
 
     this.refs = new Map();
     this._signals = new Set();
+    this._effects = new Set();
     this._eventListeners = [];
     this.attachShadow({
       mode: "open",
@@ -121,6 +123,7 @@ export class BaseElement extends HTMLElement {
           await this.unmount();
         }
         this._removeAllEventListeners();
+        this._disposeEffects();
         this._disposeSignals();
         this.refs.clear();
         this.shadowRoot.innerHTML = "";
@@ -143,6 +146,22 @@ export class BaseElement extends HTMLElement {
       signal.dispose();
     }
     this._signals.clear();
+  }
+
+  createEffect(callback) {
+    const eff = new Effect(callback);
+
+    // created effect if it has no dependencies, gets garbage collected
+    if (eff.dependencies.size) {
+      this._effects.add(eff);
+    }
+  }
+
+  _disposeEffects() {
+    for (const effect of this._effects) {
+      effect.dispose();
+    }
+    this._effects.clear();
   }
 
   _trackEventListener(element, eventName, callback) {
@@ -176,11 +195,13 @@ export class BaseElement extends HTMLElement {
 
     const element = document.createElement(tag);
 
-    if (text !== undefined) {
+    if (text) {
       if (text instanceof Signal) {
-        effect(() => {
+        this.createEffect(() => {
           element.textContent = text.get();
         });
+      } else {
+        element.textContent = text;
       }
     }
 
@@ -191,7 +212,7 @@ export class BaseElement extends HTMLElement {
             console.warn(`Duplicate ref id detected: ${value}`);
           }
           this.refs.set(value, element);
-          effect(() => {
+          this.createEffect(() => {
             element[key] = value instanceof Signal ? value.get() : value;
           });
         } else if (key.startsWith("on_")) {
@@ -201,7 +222,7 @@ export class BaseElement extends HTMLElement {
           element.addEventListener(eventName, boundCallback, options);
           this._trackEventListener(element, eventName, boundCallback);
         } else {
-          effect(() => {
+          this.createEffect(() => {
             element[key] = value instanceof Signal ? value.get() : value;
           });
         }
@@ -219,7 +240,7 @@ export class BaseElement extends HTMLElement {
         } else {
           const textNode = document.createTextNode("");
 
-          effect(() => {
+          this.createEffect(() => {
             textNode.textContent =
               child instanceof Signal ? String(child.get()) : String(child);
           });
