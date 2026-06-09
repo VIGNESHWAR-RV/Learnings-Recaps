@@ -6,7 +6,6 @@
 Emmet is a vs-code feature to help write repetitive code with minimal typing.
 we can write in shorthand format and generate multiple lines of code 
 
-
 2. Difference between a Library and Framework?
 ----------------------------------------------
 
@@ -73,5 +72,35 @@ we can write in shorthand format and generate multiple lines of code
 -------------------------------------
    crossorigin is a html attribute to allow fetching resources from external domains
    it is available in link, script, img, video, audio  
+
+6. Difference between React and ReactDOM
+----------------------------------------
+   React package includes all the core functionalities ( React Element creation, ( Vitual DOM creation / diff / updation ) React Fibre , Priority engine ) 
+   basically all functionalities of render phase
+   ReactDOM includes all the browser related functions to update the changes from Virtual DOM to actual DOM
+   basically all functionalities of commit phase
+
+7. Difference between react.development.js and react.production.js CDN files
+----------------------------------------------------------------------------
+   
+   react.development.js
+   --------------------
+      rich warnings, detailed source codes, strict mode additional checks to help development
+      3-5 times slower and heavier than production code
+      file size - 28.7 kB
+      load time ~ 70-100 ms ( not accurate ) depends on location to cdn, ISP connection speed, network range
+   react.production.js
+   -------------------
+      minified, compressed, stripped of warning logs and built for execution speed
+      file size - 4.7 kB
+      load time ~ 60-90 ms ( not accurate )
+
+8. Difference between async and defer
+-------------------------------------
+   - Both are used to load javascript without blocking the html parsing
+   - files downloaded with async, block the html parsing for execution as soon as they download
+   - files downloaded with defer, wait for html parsing to complete and begin their execution
+   - when script tag are defined with defer, js file executes in the order of their script tag definitions.
+   - both async and defer won't work on script tags with inline scripts
 
 */
