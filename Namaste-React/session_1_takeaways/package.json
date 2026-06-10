@@ -1,0 +1,24 @@
+{
+  "name": "namaste_react_ep_2",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "react"
+  ],
+  "license": "ISC",
+  "author": "vigneshwar",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "parcel": "2.16.4"
+  },
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}

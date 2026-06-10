@@ -1,5 +1,3 @@
-/*
-
 1. Emmet
 ---------
 
@@ -102,5 +100,3 @@ we can write in shorthand format and generate multiple lines of code
    - files downloaded with defer, wait for html parsing to complete and begin their execution
    - when script tag are defined with defer, js file executes in the order of their script tag definitions.
    - both async and defer won't work on script tags with inline scripts
-
-*/
