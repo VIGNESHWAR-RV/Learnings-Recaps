@@ -1,0 +1,235 @@
+1. what is NPM ?
+----------------
+
+    largest package manager that helps developers to adopt/borrow/contribute packages/libraries/framework all around the world
+    acquired by github in 2020
+    has 3 main parts
+       - registry ( to maintain packages, their different versions and their dependencies )
+       - cli to help developers interact with the registry
+       - website ( to search appropriate modules, versions, dependencies, github, contributors, create organization and so on )
+
+2. what is parcel / webpack ?
+-----------------------------
+
+    As our web projects develop, we usually need to
+       - support multiple browser versions
+       - sometime support polyfills for old browsers
+       - bundle our project with transitive dependencies to efficiently load in browsers
+       - optimize images, svg, css
+       - remove unused codes and dependencies
+    
+    parcel / webpack are bundlers that make this process easier and manageble.
+
+    - Bundlers minify, compress, trim unused ( code & comments ) in order to produce an optimized production builds
+    - Bundlers also help in development with features like local dev server, faster compilation, hot module replacement ( HMR )
+    - Bundlers also run code diagnostics that help in better understanding of application builds and their issues
+
+    parcel - zero config bundler that works by default with any configuration
+    webpack - first developed and highly customizable bundler with lot of plugin support
+
+3. what is .parcel-cache ? 
+--------------------------
+    
+    Parcel uses this folder to cache/manage every operation done during development and build
+    to avoid re-doing it again. resulting in faster compilation time
+
+4. what is npx ?
+----------------
+
+    "npx" is used to directly execute the npm packages 
+    instead of downloading and saving it in node_modules like "npm"
+
+    it first checks local "node_modules/bin" folder for that package
+      if it presents
+         it uses it to execute the command right away
+      if it not present
+         it downloads the npm package in a global temporary cache, 
+         uses it to execute the task without polluting the local node_modules
+
+    it doesn't support install command as install is part of npm ⚠️
+
+5. what is difference between dependencies and devDependencies ?
+----------------------------------------------------------------
+    
+    dependencies - packages/libraries/tools that are required by the application code to run at runtime.
+    though defined as dependencies, Bundlers only include the modules that are actually imported in the application code ( tree shaking ).
+
+    devDependencies - packages/libraries/tools that are required to develop, build and test the application code.
+    They are development-time and build-time utilities. They are not included in the final build unless explicitly imported in the application code.
+
+6. what is tree shaking ?
+-------------------------
+    
+    - The ability of bundlers to remove the unused code, dead code, unused module imports in the final application code.
+    - It requires static structure of "ES Modules" ( import and export ) rather than dynamic structure of "common JS" ( require ).  
+    - It efficiently minifies the application bundle, so it improves the application load time and execution time.
+
+7. what is Hot Module Replacement ?
+-----------------------------------
+
+    - bundler's ability to actively watch the file/module changes during development and update it to the live running application in the browser without triggerring full page reload.
+    - It preserves the current state of the application like ( filled forms )
+    - It is achieved by live websocket connection between bundler's development server and running browser application.
+
+8. Features of Parcel
+---------------------
+
+    - zero config
+    - local dev server
+    - Hot Module Replacement
+    - Tree shaking
+    - code splitting
+        - splitting code dependencies into separate bundle so it can be parallely downloaded by browser while loading application
+    - Minification, commpression, Image optimization
+    - Differential bundling
+        - generating different browser version supported code based on the browserslist
+    - Content hashing
+        - content based hashing, so browsers cache the hashed bundles for longer time 
+        and on re-deployment, only the changed modules will have the newer hash values 
+    
+9. What is `.gitignore`? What should we add and not add into it ?
+-----------------------------------------------------------------
+
+    .gitignore is a file to tell git about what are the files and folders that need not to be tracked in git for changes.
+    It helps to keep our git repository minimal and only the necessary files to build and run our application. 
+
+    what files we should add
+    ------------------------
+        - files that are re-generatable ( builds, cache ) ex: /dist , .parcel-cache
+        - application dependencies ( node_modules/ )
+        - environment variables and sensitive secrets ( credentials and API keys ) ex: .env
+
+    what files we shouldn't add
+    ---------------------------
+        - application source code and assets ( public/, src/, assets/ )
+        - application configuration files ( package.json, tsconfig.json, .babelrc )
+        - dependency lock files ( package-lock.json, yarn.lock, pnpm-lock.json ) 
+
+10. What is the difference between `package.json` and `package-lock.json` ?
+---------------------------------------------------------------------------
+
+    package.json
+        - application configuration file
+        - tracks application metadata ( name , version ), executable scripts ( start, build, test ), supported browserslist, top level dependencies and dev dependencies
+        - uses semantic versioning ( ^2.1.0 ) for top level dependencies allowing npm to install slightly minor / patch updates of the dependencies during fresh install 
+        - helpful to create the package-lock.json and node_modules
+
+    package-lock.json
+        - dependency lock file that has exact snapshot of all the top level and transitive dependencies of our application with exact version, source url and cryptographic integrity hashes
+        - useful to produce the exact same dependency tree of the application across different platforms
+        - avoids "it works on my machine!!!" issues
+
+11. Why should I not modify `package-lock.json` ?
+-------------------------------------------------
+
+    - It is automatically generated file by npm cli based on package.json. changing it manually breaks the single source of truth. 
+    - Manual modification corrupt the dependency tree leading to mismatches between package versions and integrity hashes.
+    - It can silently fail / break production if the modified version has breaking changes
+
+12. What is "node_modules" ? Is it a good idea to push that on git ?
+--------------------------------------------------------------------
+   
+    - node_modules is the directory that holds all the actual code of ( top & transitive ) dependency packages/libraries/tools.
+    - we import the required dependency into our application code from node_modules.
+    - NodeJS uses "module resolution alogorithm" to scan this folder for dependencies automatically, so we need to define the directory name in the dependency import
+
+    - it is not good to push the node_modules into git repo as it would significantly increase the project size and effectively slowing down the cloning,
+    pulling and pushing commands
+    - as package.json and package-lock.json tracks the dependencies and their version, we can easily recreate the folder as required while keeping our git repo minimal
+
+13. What is the "dist" folder ?
+-------------------------------
+
+    - dist -> distribution 
+    - Parcel during both development and prod builds, transpiles/compiles the application code and produces the bundles under the dist folder
+    - in dev, it places the unoptimized, unminimifed static assets ( html / css / js ) with heavy source maps and HMR code to assist development and debugging in browser. 
+    Images are not optimized during development 
+    - in prod build, it places the minified, compressed, tree shaked, code splitted and optimized static assets ( html / css / js / images / svgs ) into the folder and ready for production deployment
+
+14. What is "browserslist" ?
+----------------------------
+
+    - browserslist is the configuration in the package.json / standalone file ( ".browserslistrc" ) that helps the developers to 
+    declare the necessary supported browser versions for their application.
+    - it uses simple specifications like 'last 2 versions', '99.5% of US', 'not dead' to target required browsers instead of manually listing every single versions.
+    - frontend tools and bundlers often use browserslist package to analyze the specification and produce compatibe assets to perfectly run on the target browsers.
+
+15. Read about: "^" - caret and "~" - tilda
+-------------------------------------------
+
+    - used in dependency package versioning
+    - "^" downloads the latest minor and patch versions of the dependency that are above ( or ) same as the specified dependency version and below the next major version 
+       Edge case : for pre-release software ( ^0.1.2 ), it tries to download only the latest patch version and won't download the next minor versions.
+    - "~" downloads the latest patch versions of the dependency that are above ( or ) same as the specified dependency version and below the next minor version
+
+16. Read about Script types in html
+-----------------------------------
+ 
+    - "Standard inline script" 
+        scripts that has raw js script codes inline ( in-between the script tags )
+        blocks html parsing -> executes js -> resume html parsing
+
+    - "Standard External script"
+        scripts that points to the external js file via 'src' attribute
+        blocks html parsing -> downloads js file/files -> executes js file/files -> resume html parsing
+
+    - "External script with async"
+        downloads the js file/files asynchronously without blocking the html parsing
+        once downloaded -> blocks the html parsing if not done -> executes the js file/files -> resume the html parsing
+        DOM might / might not be ready, great for independent scripts
+
+    - "External script with defer"
+        downloads the js file/files asynchronously without blocking the html parsing
+        waits for html parsing completion even when download is complete
+        once html parsing complete -> executes the js file/files
+        order is guaranteed, great for application code that require DOM
+
+    - "External script with type module"
+        tells browser to treat the file/files as ES Modules ( enables ESM features )
+        behaves like defer by default
+        each file will be treated as separate module
+        executes strictly ( strict mode ) by default
+
+17. Read about dif bundlers: vite, webpack, parcel
+--------------------------------------------------
+
+    - 'webpack'
+        written in javascript, runs on node js
+        configuration heavy
+        highly customized plugin ecosystem
+        in dev ->
+          bundles the whole application in-memory
+          performs incremental file changes but might be slower on very large applications
+        in prod build -> 
+          bundles the whole application to dist folder
+
+    
+    - 'parcel'
+        written in rust ( uses "parcel/core"(rust), "swc"(rust) and "lightning css"(rust) )
+        zero-config build
+        less customizable than webpack
+        uses .parcel-cache to track the work done on every step in order to avoid duplicate work
+        in dev -> 
+          on first start, bundles the whole application in dist
+          incremental bundling on further chnages ( only the changed modules and not the entire application )
+        in prod build ->
+          bundles the whole application ( deployment ready ) to dist
+
+    - 'vite'
+        written in Typescript uses new( "oxc"(rust) and "Rolldown"(rust)  )  / old( "ESBuild"(go) and "Rollup"(javascript) )
+        best for "spa" apps
+        in dev -> 
+           no bundling, uses browser native ES Module functionality and 
+           compiles/transpiles new("oxc") / old("ESBuild", "babel" to support ("react fast refresh") ) files dynamically on demand
+        in prod build ->
+           uses new( "Rolldown" ) / old( "Rollup" ) to bundle deployment ready build
+        supports "@vitejs/plugin-react-swc" for compilation/transpilation to override new("oxc") / old("babel") with "swc"  
+
+
+
+
+
+    
+
+
+    
